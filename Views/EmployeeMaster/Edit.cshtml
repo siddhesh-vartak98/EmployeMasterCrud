@@ -1,0 +1,422 @@
+﻿@model EmployeMasterCrud.ViewModels.EmployeeViewModel
+@using EmployeMasterCrud.Common
+
+@{
+    ViewData["Title"] = "Edit Employee";
+
+    int employeeFileCount =  ViewBag.EmployeeFileCount;
+    int packageCount =  ViewBag.PackageCount;
+
+    string imagePath = Config.placeholderImageUrl;
+
+    if (Model != null)
+    {
+        if (!string.IsNullOrEmpty(Model.ThumbnailImage))
+        {
+            imagePath = Config.ThumbnailImagePath + Model.ThumbnailImage;
+        }
+    }
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Edit Employee</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="m-0 font-weight-bold text-primary">
+                                Edit Employee
+                            </h4>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="float:right">
+                                <a asp-action="Index">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="EmployeeId" />
+                                <input asp-for="CountryCode" class="form-control" type="hidden" />
+                                <input asp-for="CountryFlag" class="form-control" type="hidden" />
+
+
+                                <div class="card">
+                                    <div class="card-header py-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h4 class="m-0 font-weight-bold text-primary">
+                                                    Basic Details
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row form-group">
+                                            <div class="col-md-4">
+                                                <label asp-for="Name" class="control-label"></label>
+                                                <input asp-for="Name" class="form-control" />
+                                                <div class="divError">
+                                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label asp-for="EmailId" class="control-label"></label>
+                                                <input asp-for="EmailId" class="form-control" />
+                                                <div class="divError">
+                                                    <span asp-validation-for="EmailId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label asp-for="MobileNo" class="control-label"></label>
+                                                <div>
+                                                    <input asp-for="MobileNo" class="form-control" />
+                                                </div>
+                                                <div class="divError">
+                                                    <span asp-validation-for="MobileNo" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-group">
+                                            <div class="col-md-12">
+                                                <label asp-for="ThumbnailImage" class="control-label"></label>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="file" id="bannerImage" class="fu" accept=".jpg,.jpeg,.png" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="button" value="Upload" id="btnUploadImage" class="btn btn-primary" data-URL="/EmployeeMaster/SingleUploadImage" data-path="@Config.ThumbnailImagePath" />
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="mt-3 colspan=2">
+                                                            Please upload image of size less than 1MB.
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+                                            <div class=" col-md-12 mt-3">
+                                                <img src="@imagePath" alt="Alternate Text" id="ImgUploadedImage" style="height:200px;" />
+                                                @Html.HiddenFor(model => model.ThumbnailImage, new { id = "image" })
+                                                <div class="divError">
+                                                    <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div> <!-- Image Upload -->
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header py-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h4 class="m-0 font-weight-bold text-primary">
+                                                    Address
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row form-group">
+
+                                            <div class="col-md-4">
+                                                <label asp-for="CountryId" class="control-label"></label>
+                                                <select asp-for="CountryId" class="form-control" asp-items="@ViewBag.CountryId">
+                                                    <option selected disabled>Select Country</option>
+                                                </select>
+                                                <div class="divError">
+                                                    <span asp-validation-for="CountryId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label asp-for="StateId" class="control-label"></label>
+                                                <select asp-for="StateId" class="form-control" asp-items="@ViewBag.StateId">
+                                                    <option selected disabled>Select State</option>
+                                                </select>
+                                                <div class="divError">
+                                                    <span asp-validation-for="StateId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label asp-for="CityId" class="control-label"></label>
+                                                <select asp-for="CityId" class="form-control" asp-items="@ViewBag.CityId">
+                                                    <option selected disabled>Select City</option>
+                                                </select>
+                                                <div class="divError">
+                                                    <span asp-validation-for="CityId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row form-group">
+                                            <div class="col-md-6">
+                                                <label asp-for="AddressLineOne" class="control-label"></label>
+                                                <input asp-for="AddressLineOne" class="form-control" />
+                                                <div class="divError">
+                                                    <span asp-validation-for="AddressLineOne" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label asp-for="AddressLineTwo" class="control-label"></label>
+                                                <input asp-for="AddressLineTwo" class="form-control" />
+                                                <div class="divError">
+                                                    <span asp-validation-for="AddressLineTwo" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row form-group">
+                                            <div class="col-md-12">
+                                                <label asp-for="IsPrimary" class="control-label"></label>
+                                                <input asp-for="IsPrimary" class="form-control" />
+                                                <div class="divError">
+                                                    <span asp-validation-for="IsPrimary" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header py-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h4 class="m-0 font-weight-bold text-primary">
+                                                    Files
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        @Html.Hidden("hfGalleryFileCount", employeeFileCount)
+                                        @* multi upload *@
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+
+                                                <input type="file" id="fumultiimage" class="fumulti" name="fumultiimage" accept=".jpg,.jpeg,.png,application/msword,.docx, application/pdf" multiple />
+                                                <div class="divError">
+                                                    <span class="field-validation-valid text-danger" data-valmsg-for="fumultiimage" data-valmsg-replace="true"></span>
+                                                </div>
+                                                @*  <p class="paraInfo">Recommended Size - 200 X 250</p> *@
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="button" value="Upload" class="btn btn-primary btnMultiUploadImage" data-URL="/ProductMaster/MultiUploadFile" data-path="@Config.EmpFilePath" />
+
+                                            </div>
+                                        </div><br />
+
+                                        @*Here We Post MultiImage*@
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="divUploadedItemContainer">
+                                                    @if(Model != null)
+                                                    {
+                                                        if (Model.listEmployeeFilesData != null)
+                                                        {
+                                                            if (Model.listEmployeeFilesData.Any())
+                                                            {
+                                                                int count = 0;
+                                                                foreach (var item in Model.listEmployeeFilesData)
+                                                                {
+                                                                    if (item != null)
+                                                                    {
+                                                                        count = count + 1;
+
+                                                                        <div class="divImage">
+                                                                            <input type="hidden" name="hf_image_@count" value="@item.FileName" />
+                                                                            <img src="@Config.EmpFilePath@item.FileName" alt="AlternateText" id="MultiUploadImage" height="150" />
+                                                                            <div class="divDeleteImage">
+                                                                                <span class="fa fa-trash"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header py-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h4 class="m-0 font-weight-bold text-primary">
+                                                    Salary
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        @* package upload*@
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row mb-3">
+                                                    <div class="col-md-4">
+                                                        <input type="button" value="Add Document" id="addFileNewsDownload" class="btn btn-sm btn-primary" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row mb-3">
+                                                    <div class="col-md-2">
+                                                        Package Name
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        Package Value
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        Package File
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        File Review
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        Action
+                                                    </div>
+                                                </div>
+
+
+                                                <div id="newPackage">
+                                                    @Html.Hidden("hfNewsFileCount", packageCount)
+
+                                                </div>
+
+                                                <div id="newsDownloadFileShowContainer">
+                                                    @if (Model != null)
+                                                    {
+                                                        if (Model.listEmployeePackageData != null)
+                                                        {
+                                                            if (Model.listEmployeePackageData.Any())
+                                                            {
+                                                                int count = 0;
+                                                                foreach (var item in Model.listEmployeePackageData)
+                                                                {
+                                                                    if (item != null)
+                                                                    {
+                                                                        count = count + 1;
+
+                                                                        <div class="row mt-2" name="txtPackage_@count">
+
+                                                                            <div class="col-md-2">
+
+                                                                                <input type="text" class="form-control" id="txtDocumentName_@count" name="txtDocumentName_@count" placeholder="Enter Document Name" maxlength="30" aria-describedby="documentTitleHelpBlock" value="@item.PackageName" />
+                                                                                <small id="documentTitleHelpBlock" class="form-text text-muted">
+                                                                                    Document name has 30 characters limit.
+                                                                                </small>
+                                                                                <div class="divError">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-3">
+
+                                                                                <input type="text" class="form-control" name="txtDocumentNumber_@count" id="txtDocumentNumber_@count" placeholder="Enter Document Number" maxlength="20" aria-describedby="newsDownTitleHelpBlock" value="@item.PackageValue" />
+                                                                                <small id="newsDownTitleHelpBlock" class="form-text text-muted">
+                                                                                    Document number has 20 characters limit.
+                                                                                </small>
+                                                                                <div class="divError">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-4">
+
+                                                                                <table>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <input type="file" id="fuNewsFile_@count" class="fuNewsFile_@count" accept="application/msword,.docx, application/pdf, .jpg,.jpeg,.png " style="width:100%;" />
+                                                                                        </td>
+
+                                                                                        <td>
+                                                                                            <input type="button" id="btnNewsDownloadFile" value="Upload" class="btn btn-primary btnNewsDownloadFile" data-count="@count" data-URL="/EmployeeMaster/SingleUploadFile" data-path="/Content/DocumentFiles" />
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    <tr style="font-size:13px;height: 13px!important;">
+                                                                                        <td class="">
+                                                                                            Please upload file size less than 1MB.
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                </table>
+                                                                            </div>
+
+                                                                            <div id="newsDownloadFileContainer_@count" class="col-md-2">
+
+                                                                                <div class="divImage">
+                                                                                    <input type="hidden" name="hf_documentFile_@count" value="@item.PackageFile" />
+                                                                                    <a href="@Config.DocumentFilePath@item.PackageFile"><img src="/images/fileImage.svg" alt="AlternateText" id="MultiUploadImage" height="100" /></a>' +
+                                                                                    <div class="divDeleteImage">
+                                                                                        <span class="fa fa-trash"></span>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-md-1">
+                                                                                <button title="Delete" type="button" class="btn btn-primary btn-sm removeNewsFile" data-deleteCount="@count" data-toggle="tooltip" data-placement="top">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16"> <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" /></svg>
+                                                                                </button>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+
+                                                    }
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

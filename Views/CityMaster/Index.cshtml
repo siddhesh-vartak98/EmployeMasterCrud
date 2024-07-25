@@ -1,0 +1,73 @@
+﻿@model IEnumerable<EmployeMasterCrud.Models.CityMaster>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active"> Index</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="m-0 font-weight-bold text-primary">
+                                All Cities(@ViewBag.totalmodeldata)
+                            </h4>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="float:right">
+                                @Html.ActionLink("Create", "Create", new { }, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form class="row mb-3 g-3" asp-controller="CityMaster" asp-action="Index" method="get">
+
+                        <div class="col-md-2">
+                            @Html.DropDownList("countryID", null, "Select Country", htmlAttributes: new { @class = "form-control boxed", @value = ViewBag.searchCountryName })
+                        </div>
+
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="SearchString" value="@ViewData["searchname"]" placeholder="Find By City Name" />
+                        </div>
+
+                        @* <div class="col-md-2">
+                        @Html.DropDownList("ddlStatus", null, "All Published", htmlAttributes: new { @class = "form-control boxed", @value = ViewBag.SearchStatus })
+                        </div> *@
+
+                        <div class="col-md-4">
+                            <input type="submit" value="Search" class="btn btn-dark" />
+
+                            <a class="btn btn-info ml-2" asp-action="Index">Clear</a>
+                        </div>
+                    </form>
+
+                    <div>
+                        <partial name="_CityPartial" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

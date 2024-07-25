@@ -1,0 +1,232 @@
+﻿@model IPagedList<EmployeMasterCrud.Models.CountryMaster>
+@using EmployeMasterCrud.Common;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+
+<div class="table-responsive">
+    <table class="table table-bordered overflow-hidden table-striped" width="100%">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["IDSortParm"]">@Html.DisplayNameFor(model => model.First().CountryId)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.First().CountryName) </a>
+                </th>
+
+                @* <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["SequenceSort"]">@Html.DisplayNameFor(model => model.First().sequence) </a>
+                </th> *@
+                <th>
+                    @Html.DisplayNameFor(model => model.First().IsActive)
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateEntered"]"> @Html.DisplayNameFor(model => model.First().WhenEntered)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateModified"]"> @Html.DisplayNameFor(model => model.First().WhenModified)</a>
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr> <td colspan="8"> Records not found </td></tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    //string isActive = item.IsDeleted == true ? "Active" : "In Active";
+
+                    if (item != null)
+                    {
+                        string WE = CommonFunctions.ConvertToIST(item.WhenEntered).ToString(Config.dateTimeFormat);
+                        string WM = CommonFunctions.ConvertToIST(item.WhenModified).ToString(Config.dateTimeFormat);
+
+                        <tr>
+                            <td class="data" title="@item.CountryId">
+                                @Html.DisplayFor(modelItem => item.CountryId)
+                            </td>
+
+                            @if (!string.IsNullOrEmpty(item.CountryName))
+                            {
+                                <td class="data" title="@item.CountryName">
+                                    @Html.DisplayFor(modelItem => item.CountryName)
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="data" title="-">
+                                    <span> - </span>
+                                </td>
+                            }
+
+                            @* <td class="data" title="@item.sequence">
+                                @Html.DisplayFor(modelItem => item.sequence)
+                            </td> *@
+                            <td class="data">
+                                <div style="text-align: -webkit-center;">
+                                    @if (item.IsActive)
+                                    {
+                                        <div class="publishChange publishStatusCircle publishColor" data-bs-toggle="modal" data-bs-target="#modal-publishStatus" data-id="@item.CountryId">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="publishChange publishStatusCircle notPublishColor" data-bs-toggle="modal" data-bs-target="#modal-publishStatus" data-id="@item.CountryId">
+                                        </div>
+                                    }
+                                </div>
+
+                            </td>
+                            <td class="data" title="@WE">
+                                @WE
+                            </td>
+                            <td class="data" title="@WM">
+                                @WM
+                            </td>
+
+                            <td>
+                                <a class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" asp-action="Edit" asp-route-id="@item.CountryId">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                    </svg>
+                                </a>
+
+                                <button title="Delete" type="button" class="btn btn-danger btn-sm deleteBanner" data-toggle="tooltip" data-placement="top" data-bs-toggle="modal" data-bs-target="#modal-DeleteBanner" data-id="@item.CountryId">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                    </svg>
+                                </button>
+
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new
+        {
+            page = page,
+            searchString = ViewBag.searchname,
+            ddlStatus = ViewBag.SearchStatus,
+            sortOrder = ViewBag.CurrentSort,
+            currentFilter = ViewBag.CurrentFilter,
+        }), new PagedListRenderOptions()
+{
+    ActiveLiElementClass = "active",
+    PageClasses = new[] { "page-link" },
+    LiElementClasses = new[] { "page-item" },
+    UlElementClasses = new[] { "pagination", "justify-content-left", "mt-3" },
+    LinkToNextPageFormat = "Next",
+    LinkToPreviousPageFormat = "Previous",
+    MaximumPageNumbersToDisplay = 5,
+    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+    DisplayLinkToNextPage = PagedListDisplayMode.Always
+})
+
+</div>
+
+<!-- Delete Popup-->
+<div class="modal fade" data-bs-toggle="modal" id="modal-DeleteBanner" tabindex="-1" role="dialog" aria-labelledby="Activated" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete City?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("DeleteConfirmed", "CountryMaster", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+
+                    @Html.Hidden("id")
+
+                    <p>
+                        Are you sure you want to delete this country?
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>
+                    <input type="submit" name="Update" value="Confirm" class="btn btn-primary">
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Publish Popup-->
+<div class="modal fade" data-bs-toggle="modal" id="modal-publishStatus" tabindex="-1" role="dialog" aria-labelledby="Activated" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Publish Status?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("ChangePublishStatus", "CountryMaster", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+
+                    @Html.Hidden("ID")
+
+                    <p>
+                        Are you sure you want to change this country publish status?
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>
+                    <input type="submit" name="Update" value="Confirm" class="btn btn-primary">
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $(".deleteBanner").click(function () {
+
+            $("#id").val($(this).attr("data-id"));
+
+            $("#modal-DeleteBanner").modal();
+
+        });
+
+        $(".publishChange").click(function () {
+
+            $("#ID").val($(this).attr("data-id"));
+
+            $("#modal-publishStatus").modal();
+
+        });
+    });
+</script>
+
+
+
+

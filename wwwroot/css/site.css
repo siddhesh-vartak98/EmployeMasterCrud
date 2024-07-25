@@ -1,0 +1,229 @@
+/*html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}*/
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+.divError {
+    font-size: 13px;
+    color: red;
+    height: 15px;
+}
+
+.main-header {
+    left: 0 !important;
+    position: fixed !important;
+    right: 0 !important;
+    top: 0 !important;
+    z-index: 1037 !important;
+}
+
+/*[class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link {
+    
+    color: black !important;
+}
+
+    [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link:hover {
+        color: var(--primary) !important;
+    }
+
+.nav-treeview {
+    color: black !important;
+    border-radius: 10px;
+    background-color: white !important
+}
+*/
+
+.data {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100px !important;
+    cursor: pointer;
+}
+
+.sticky {
+    top: 5rem;
+    right: 10rem;
+}
+
+.img-profile {
+    height: 2rem;
+    width: 2rem;
+}
+
+.topbar .topbar-divider {
+    width: 0;
+    border-right: 1px solid #e3e6f0;
+    height: calc(4.375rem - 2rem);
+    margin: auto 1rem;
+}
+
+.ptop-2 {
+    padding-top: 2rem !important;
+}
+
+.login-logo {
+    background-image: url('../images/415x155.png');
+    /* background-image: url('../images/415x155.png');*/
+    height: 120px !important;
+    margin-bottom: 0rem !important;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.login-box-msg, .register-box-msg {
+    padding: 0 !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+}
+
+.border-botton {
+    width: 90% !important;
+    border-bottom: 1px solid #eee;
+    align-self: center;
+}
+
+.dropdown-menu-lg {
+    min-width: 200px !important;
+}
+
+.dropdown-item:hover {
+    color: white !important;
+    background-color: var(--primary) !important;
+    cursor: pointer;
+}
+
+.publishStatusCircle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.publishColor {
+    background-color: green;
+}
+
+.notPublishColor {
+    background-color: red;
+}
+
+.action-minWidth-One {
+    min-width: 100px;
+}
+
+.index-srNo-minWidth {
+    min-width: 85px;
+}
+
+.divImage {
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+    background-color: white;
+    text-align: center;
+    border: solid 1px #c5c5c5;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.divDeleteImage {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.divFileBox {
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    position: relative;
+    /*margin-right: 10px;*/
+    background-color: white;
+    text-align: center;
+    border: solid 1px #c5c5c5;
+    padding: 20px;
+    /* margin-bottom: 10px;*/
+}
+
+.divDeleteFile {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.close-icon {
+    cursor: pointer;
+}
+
+.companyAction-minWidth-One {
+    min-width: 150px;
+}
+
+.text-end {
+    text-align: end;
+}
+
+.div-back-link {
+    cursor: pointer;
+    color: #007bff;
+}
+/*---------select2 css--------------*/
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #495057 !important;
+    line-height: 28px !important;
+}
+
+.select2-container .select2-selection--single {
+    height: calc(1.5em + .75rem + 2px) !important;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #d1d3e2 !important;
+}
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        margin-top: 5px;
+    }
+
+/*---------End select2 css--------------*/
